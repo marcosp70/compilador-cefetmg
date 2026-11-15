@@ -11,7 +11,14 @@ if (-not (Get-Command javac -ErrorAction SilentlyContinue)) {
 }
 
 New-Item -ItemType Directory -Force $classes, $testClasses, $dist | Out-Null
-Remove-Item -Recurse -Force $classes, $testClasses
+foreach ($target in @($classes, $testClasses)) {
+    $resolved = [System.IO.Path]::GetFullPath($target)
+    $buildRoot = [System.IO.Path]::GetFullPath((Join-Path $projectRoot 'build')) + [System.IO.Path]::DirectorySeparatorChar
+    if (-not $resolved.StartsWith($buildRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Diretório de build inválido: $resolved"
+    }
+    Remove-Item -LiteralPath $resolved -Recurse -Force
+}
 New-Item -ItemType Directory -Force $classes, $testClasses | Out-Null
 
 $mainSources = @(Get-ChildItem $sourceRoot -Recurse -Filter '*.java' | ForEach-Object FullName)
@@ -23,7 +30,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Falha ao compilar o código principal.' }
 & javac -encoding UTF-8 --release 17 -cp $classes -d $testClasses $testSources
 if ($LASTEXITCODE -ne 0) { throw 'Falha ao compilar os testes.' }
 
-$jarPath = Join-Path $dist 'compilador-etapa1.jar'
+$jarPath = Join-Path $dist 'compilador-etapa2.jar'
 & jar --create --file $jarPath --manifest (Join-Path $projectRoot 'packaging\MANIFEST.MF') -C $classes .
 if ($LASTEXITCODE -ne 0) { throw 'Falha ao gerar o JAR.' }
 

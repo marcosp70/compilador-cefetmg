@@ -1,0 +1,233 @@
+[
+  {
+    "test": "Teste 1",
+    "step": 0,
+    "change": "Entrada sem erros léxicos da última versão da Etapa 1, preservada sem alterações.",
+    "source": "testes/etapa2/teste1/passo00.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 1",
+    "step": 1,
+    "change": "Trocar programa por program.",
+    "source": "testes/etapa2/teste1/passo01.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 1",
+    "step": 2,
+    "change": "Mover begin para antes das declarações.",
+    "source": "testes/etapa2/teste1/passo02.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 1",
+    "step": 3,
+    "change": "Trocar is por = na declaração.",
+    "source": "testes/etapa2/teste1/passo03.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 1",
+    "step": 4,
+    "change": "Usar write em minúsculas.",
+    "source": "testes/etapa2/teste1/passo04.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 1",
+    "step": 5,
+    "change": "Adicionar parênteses no write.",
+    "source": "testes/etapa2/teste1/passo05.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 1",
+    "step": 6,
+    "change": "Remover separador antes de end.",
+    "source": "testes/etapa2/teste1/passo06.lpp",
+    "success": true
+  },
+  {
+    "test": "Teste 2",
+    "step": 0,
+    "change": "Entrada sem erros léxicos da última versão da Etapa 1, preservada sem alterações.",
+    "source": "testes/etapa2/teste2/passo00.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 2",
+    "step": 1,
+    "change": "Inserir begin antes das declarações.",
+    "source": "testes/etapa2/teste2/passo01.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 2",
+    "step": 2,
+    "change": "Usar read em minúsculas.",
+    "source": "testes/etapa2/teste2/passo02.lpp",
+    "success": true
+  },
+  {
+    "test": "Teste 3",
+    "step": 0,
+    "change": "Entrada sem erros léxicos da última versão da Etapa 1, preservada sem alterações.",
+    "source": "testes/etapa2/teste3/passo00.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 3",
+    "step": 1,
+    "change": "Inserir nome e begin antes das declarações.",
+    "source": "testes/etapa2/teste3/passo01.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 3",
+    "step": 2,
+    "change": "Encerrar declaração de b com ponto e vírgula e remover begin antigo.",
+    "source": "testes/etapa2/teste3/passo02.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 3",
+    "step": 3,
+    "change": "Inserir then no segundo if.",
+    "source": "testes/etapa2/teste3/passo03.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 3",
+    "step": 4,
+    "change": "Remover separador antes de else.",
+    "source": "testes/etapa2/teste3/passo04.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 3",
+    "step": 5,
+    "change": "Remover separador final e encerrar if e programa.",
+    "source": "testes/etapa2/teste3/passo05.lpp",
+    "success": true
+  },
+  {
+    "test": "Teste 4",
+    "step": 0,
+    "change": "Entrada sem erros léxicos da última versão da Etapa 1, preservada sem alterações.",
+    "source": "testes/etapa2/teste4/passo00.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 1,
+    "change": "Trocar programa por program.",
+    "source": "testes/etapa2/teste4/passo01.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 2,
+    "change": "Mover begin para antes das declarações.",
+    "source": "testes/etapa2/teste4/passo02.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 3,
+    "change": "Usar tipo int na declaração.",
+    "source": "testes/etapa2/teste4/passo03.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 4,
+    "change": "Fechar parêntese externo do while.",
+    "source": "testes/etapa2/teste4/passo04.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 5,
+    "change": "Separar o if do comando write seguinte.",
+    "source": "testes/etapa2/teste4/passo05.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 6,
+    "change": "Remover separador antes do end do while.",
+    "source": "testes/etapa2/teste4/passo06.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 4",
+    "step": 7,
+    "change": "Adicionar ponto no fim do programa.",
+    "source": "testes/etapa2/teste4/passo07.lpp",
+    "success": true
+  },
+  {
+    "test": "Teste 5",
+    "step": 0,
+    "change": "Entrada sem erros léxicos da última versão da Etapa 1, preservada sem alterações.",
+    "source": "testes/etapa2/teste5/passo00.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 5",
+    "step": 1,
+    "change": "Mover begin para antes das declarações.",
+    "source": "testes/etapa2/teste5/passo01.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 5",
+    "step": 2,
+    "change": "Trocar end por then após condição do primeiro if.",
+    "source": "testes/etapa2/teste5/passo02.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 5",
+    "step": 3,
+    "change": "Remover separador antes de else.",
+    "source": "testes/etapa2/teste5/passo03.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 5",
+    "step": 4,
+    "change": "Mover end do else interno para depois de maior = c.",
+    "source": "testes/etapa2/teste5/passo04.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 5",
+    "step": 5,
+    "change": "Remover separador antes de until.",
+    "source": "testes/etapa2/teste5/passo05.lpp",
+    "success": false
+  },
+  {
+    "test": "Teste 5",
+    "step": 6,
+    "change": "Agrupar cada comparação da condição de until: (opc == 'N') || (opc == 'n'), conforme a precedência original.",
+    "source": "testes/etapa2/teste5/passo06.lpp",
+    "success": true
+  },
+  {
+    "test": "Teste 6A",
+    "step": 0,
+    "change": "Teste adicional com declarações dos três tipos, todos os comandos, operadores e expressões aninhadas.",
+    "source": "testes/etapa2/adicionais/teste6a.lpp",
+    "success": true
+  },
+  {
+    "test": "Teste 6B",
+    "step": 0,
+    "change": "Teste adicional sem declarações, com blocos aninhados e case-sensitive; ausência de declaração é questão semântica, fora da Etapa 2.",
+    "source": "testes/etapa2/adicionais/teste6b.lpp",
+    "success": true
+  }
+]

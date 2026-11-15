@@ -9,6 +9,9 @@ Thumbs.db
 # Arquivos locais e artefatos de documentação
 ALUNO.txt
 relatorio/
+relatorio-etapa2/
+__pycache__/
+*.pyc
 resultados/
 tools/
 *.tex
