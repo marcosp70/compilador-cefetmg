@@ -1,0 +1,17 @@
+{* Identificadores distintos e blocos aninhados.
+   Comentário com várias linhas. *}
+program teste6b
+begin
+valor = 1;
+Valor = valor + 1;
+if Valor > valor then
+  repeat
+    while valor < Valor do
+      valor = valor + 1
+    end
+  until valor == Valor
+else
+  write("outro ramo")
+end;
+write("")
+end.

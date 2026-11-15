@@ -1,111 +1,109 @@
-# Analisador Léxico
+# Compilador — Etapa 2: Analisador Sintático
 
-Implementação manual de um analisador léxico e de uma tabela de símbolos para a disciplina de Compiladores do curso de Engenharia de Computação do CEFET-MG.
+Trabalho de Compiladores do CEFET-MG, Engenharia de Computação, 2026/2.
+Professora: Kecia Aline Marques Ferreira.
 
-## Integrantes
+Integrantes: Marcos Paulo Santos da Silva, Arthur Bracarense e Caio Rangel.
 
-- Marcos Paulo Santos da Silva
-- Arthur Bracarense
-- Caio Rangel
+Implementação manual em Java 17, sem geradores de analisadores e sem dependências Java externas.
+Esta etapa parte do merge `d2c296a` da PR #1, preservando as correções da análise léxica.
 
-## Funcionalidades
+## Executar
 
-- reconhecimento dos tokens definidos pela linguagem;
-- identificação de palavras reservadas e identificadores;
-- instalação dos símbolos em tabela hash com ordem de inserção;
-- registro de linha e coluna de cada token;
-- mensagens de erro léxico com a posição do problema;
-- comentários delimitados por `{*` e `*}`, inclusive em várias linhas;
-- suporte opcional à procura de vários erros com `--all-errors`;
-- diferenciação entre maiúsculas e minúsculas;
-- testes automatizados sem dependências externas.
-
-O analisador foi implementado diretamente em Java, sem JFlex, Lex, Flex, JavaCC ou outras ferramentas geradoras.
-
-## Requisitos
-
-- JDK 17 ou superior;
-- PowerShell no Windows para utilizar os scripts `.ps1`.
-
-Verifique a instalação do Java:
+Requer Java 17 ou superior. O JAR desta etapa está em `dist/compilador-etapa2.jar`.
 
 ```powershell
-java -version
-javac -version
-```
-
-## Executando o JAR
-
-O JAR executável está em `dist/compilador-etapa1.jar`.
-
-```powershell
-java -jar .\dist\compilador-etapa1.jar .\testes\corrigidos\teste1_corrigido.lpp
-```
-
-Também é possível utilizar o script:
-
-```powershell
-.\scripts\run.ps1 .\testes\corrigidos\teste1_corrigido.lpp
+java -jar .\dist\compilador-etapa2.jar .\testes\etapa2\adicionais\teste6a.lpp
+.\scripts\run.ps1 .\testes\etapa2\teste5\passo06.lpp
 ```
 
 No Prompt de Comando:
 
 ```bat
-run.bat testes\corrigidos\teste1_corrigido.lpp
+run.bat testes\etapa2\adicionais\teste6a.lpp
 ```
 
-Por padrão, o analisador encerra no primeiro erro léxico. Para procurar outros erros após a primeira ocorrência:
+Saída de sucesso:
 
-```powershell
-java -jar .\dist\compilador-etapa1.jar --all-errors .\testes\originais\teste1.lpp
+```text
+Resultado: SUCESSO - análise léxica e sintática concluída sem erros.
 ```
 
-## Compilação e testes
+Se houver erro, são informados o esperado, o encontrado, a linha e a coluna.
+O processo encerra no primeiro erro. Nesta etapa não são impressos tokens nem tabela de símbolos.
+A análise léxica completa precede a sintática. A opção `--all-errors` pertence somente à CLI da Etapa 1.
+
+Códigos de saída: **0** sucesso; **1** erro léxico/sintático; **2** erro de argumentos ou leitura.
+
+## Compilar e verificar
+
+Requer JDK 17 ou superior no PATH e PowerShell.
 
 ```powershell
 .\scripts\build.ps1
 .\scripts\test.ps1
+.\scripts\generate-results.ps1
 ```
 
-O primeiro comando compila o projeto e gera o JAR. O segundo realiza o build e executa os dez grupos de testes automatizados.
+`test.ps1` executa os **11 testes léxicos herdados e 60 testes sintáticos**.
+`generate-results.ps1` executa e confere **33 cenários**, validando sucesso/erro,
+ausência de erro léxico e ausência de listagem de tokens/símbolos.
+As saídas locais são escritas em `resultados/etapa2/`.
 
-## Regras léxicas principais
+## Gramática e comportamento
 
-- identificador: `[A-Za-z_][A-Za-z0-9_]*`;
-- inteiro: `[0-9]+`;
-- ponto flutuante: `[0-9]+\.[0-9]+`;
-- caractere: um caractere ASCII entre aspas simples;
-- literal: caracteres ASCII entre aspas duplas, sem quebra de linha;
-- comentário: começa em `{*` e termina em `*}`;
-- palavras reservadas são *case-sensitive*;
-- `&&` e `||` devem aparecer completos;
-- declarações utilizam `=` conforme `decl ::= ident-list "=" type`;
-- `:` não pertence à linguagem e produz erro léxico.
+O parser usa descida recursiva e consulta até três tokens para distinguir declaração de atribuição.
+A recursão à esquerda das expressões foi eliminada por repetições.
+A gramática adaptada e a justificativa das transformações estão em
+[docs/gramatica-etapa2.md](docs/gramatica-etapa2.md).
+A análise da versão de partida está em [docs/analise-base.md](docs/analise-base.md).
 
-## Saída
+Regras que merecem atenção:
 
-Para cada programa analisado são mostrados:
+- `begin` aparece **antes** das declarações.
+- Declarações usam `=`, por exemplo `a, b = int;`.
+- `;` separa comandos: não há comando vazio nem separador final antes de `end`, `else` ou `until`.
+- Comentários são delimitados por `{*` e `*}`.
+- Palavras reservadas são sensíveis a maiúsculas/minúsculas.
+- A precedência é a do enunciado: `&&` no grupo multiplicativo e `||` no aditivo.
+- Comparações combinadas devem ser agrupadas, como `(opc == 'N') || (opc == 'n')`.
+- Somente um prefixo unário por fator: `!!a` é inválido; `!(!a)` é válido.
+- Tokens após `end.` são rejeitados.
 
-1. a sequência numerada de tokens, com lexema, atributo, linha e coluna;
-2. a tabela de símbolos com posição, lexema, categoria e token;
-3. o resultado final da análise léxica.
+Declaração prévia, tipos e geração de código pertencem à Etapa 3.
+Consequentemente, sucesso sintático não significa que um programa seja semanticamente válido.
 
-Identificadores e palavras reservadas utilizam como atributo a posição na tabela de símbolos, como em `<IDENTIFIER, TS[18]>`. As constantes carregam o próprio valor como atributo.
+## Testes do trabalho
 
-## Estrutura do projeto
+Os arquivos da Etapa 1 foram preservados. Para a Etapa 2:
+
+- `testes/etapa2/teste1/` a `teste5/`: `passo00.lpp` é o fonte sem erro léxico do merge; cada passo seguinte corrige o erro documentado.
+- Versões finais: Teste 1 `passo06`, Teste 2 `passo02`, Teste 3 `passo05`, Teste 4 `passo07`, Teste 5 `passo06`.
+- `testes/etapa2/adicionais/`: dois testes extras com blocos, comandos e expressões aninhados.
+- `testes/etapa2/cenarios.json`: ordem, explicação de cada correção e resultado esperado.
+
+## Estrutura
 
 ```text
-src/main/java/        código-fonte do compilador
-src/test/java/        testes automatizados
-testes/originais/     programas fornecidos no enunciado
-testes/correcoes/     correções intermediárias dos erros léxicos
-testes/corrigidos/    programas sem erros léxicos
-testes/adicionais/    testes adicionais
-dist/                 JAR executável
-packaging/            manifesto utilizado na criação do JAR
-scripts/              scripts de build, teste e execução
+src/main/java/       lexer, símbolos, parser e CLI
+src/test/java/       testes sem dependências externas
+testes/etapa2/       fontes e sequência de correções da Etapa 2
+testes/originais/    fontes originais da Etapa 1
+testes/corrigidos/   versões sem erro léxico da Etapa 1
+docs/               gramática adaptada e análise da base
+scripts/            build, execução, testes e geração de relatório
+dist/               JAR da Etapa 2 e JAR histórico da Etapa 1
 ```
 
-## Escopo
+## Relatório
 
-Este repositório corresponde à Etapa 1 do projeto. Erros sintáticos presentes nos programas de entrada são preservados quando não constituem erro léxico e serão tratados na etapa de análise sintática.
+O pacote de entrega inclui `relatorio-etapa2/main.tex` e `Relatorio_Etapa2.md`.
+O LaTeX é autossuficiente, contém cada fonte e sua saída real e pode ser importado no Overleaf
+com compilador pdfLaTeX. A imagem `logoCefet.png` é opcional.
+Relatórios e resultados locais não são versionados.
+
+Para reconstruí-los, execute a geração de resultados e depois (Python 3.9 ou superior):
+
+```powershell
+python .\scripts\generate-report.py
+```
